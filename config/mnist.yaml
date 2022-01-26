@@ -1,0 +1,43 @@
+---
+dataset:
+    # dataset
+    ds:
+        img_size: [32, 32]
+        mean: [0.1307]
+        std: [0.3081]
+        p:
+            dataset: 'mnist'
+            data_root: './data'
+        q:
+            dataset: 'mnist'
+            data_root: './data'
+    # dataloader
+    dl:
+        batch_size: 64
+        p:
+            use_sampling: True
+            sampling_by_variable: 'targets'
+            sampling_weights: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        q:
+            use_sampling: True
+            sampling_by_variable: 'targets'
+            sampling_weights: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        num_workers: 4
+        pin_memory: True
+model:
+    img_size: 32
+    channels: 1
+    task_classifier_type: 'mnist'
+    task_classifier_path: './experiments/classification-models/mnist.pt'
+trainer:
+    epochs: 3
+    learning_rate: 1.e-5
+    loss_type: 'mmd2'
+    loss_lambda: 10**(-6)
+    eval:
+        n_permute: 100
+        alpha: 0.05
+        use_tensorboard: True
+        n_test_reps: 100
+        eval_interval_globalstep: 100
+        num_eval_batches: 20

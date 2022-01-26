@@ -1,0 +1,42 @@
+---
+dataset:
+    # dataset
+    ds:
+        img_size: [96, 96]
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+        p:
+            dataset: 'camelyon'
+            data_root: './data'
+        q:
+            dataset: 'camelyon'
+            data_root: './data'
+    # dataloader
+    dl:
+        batch_size: 64
+        p:
+            use_sampling: True
+            sampling_by_variable: 'hospitals'
+            sampling_weights: [1, 1, 1, 1, 1]
+        q:
+            use_sampling: True
+            sampling_by_variable: 'hospitals'
+            sampling_weights: [1, 1, 1, 1, 1]
+        num_workers: 4
+        pin_memory: True
+model:
+    img_size: 96
+    channels: 3
+    task_classifier_type: 'camelyon'
+    task_classifier_path: './experiments/classification-models/camelyon17_seed9_best_model.pth'
+trainer:
+    epochs: 1
+    learning_rate: 1.e-5
+    loss_type: 'mmd2'
+    eval:
+        n_permute: 100
+        alpha: 0.05
+        use_tensorboard: False
+        n_test_reps: 100
+        eval_interval_globalstep: 50
+        num_eval_batches: 30

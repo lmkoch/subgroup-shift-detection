@@ -1,0 +1,33 @@
+---
+dataset:
+    # dataset
+    ds:
+        img_size: [32, 32]
+        mean: [0.1307]
+        std: [0.3081]
+        p:
+            dataset: 'mnist'
+            data_root: './data'
+        q:
+            dataset: 'mnist'
+            data_root: './data'
+    # dataloader
+    dl:
+        batch_size: 1
+        p:
+            use_sampling: True
+            sampling_by_variable: 'targets'
+            sampling_weights: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        q:
+            use_sampling: True
+            sampling_by_variable: 'targets'
+            sampling_weights: [1, 1, 1, 1, 1, 100, 1, 1, 1, 1]
+        num_workers: 4
+        pin_memory: True
+model:
+    n_outputs: 10
+    task_classifier_type: 'mnist'
+    task_classifier_path: './experiments/classification-models/mnist.pt'
+
+
+

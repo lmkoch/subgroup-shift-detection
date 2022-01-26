@@ -1,0 +1,8 @@
+*.sif
+*.pyc
+*.sh
+*.log
+.env
+.vscode
+experiments
+data
